@@ -17,15 +17,30 @@ std::string decrypt(const std::string en_text, const std::string key)
 		char x = en_text[i];
 		if(isalpha(x))
 		{
-			int col = alpha_low.find(key[(i - not_used) % key.length()]);
-			int distance = 0;
-
-			while (alpha_low[(col - distance + 26) % 26] != x)
+			if (islower(x))
 			{
-				distance += 1;
+				int col = alpha_low.find(key[(i - not_used) % key.length()]);
+				int distance = 0;
+
+				while (alpha_low[(col - distance + 26) % 26] != x)
+				{
+					distance += 1;
+				}
+				de_text += alpha_low[distance];
 			}
-			de_text += alpha_low[distance];
+			else
+			{
+				int col = alpha_up.find(key[(i - not_used) % key.length()]);
+				int distance = 0;
+
+				while (alpha_up[(col - distance + 26) % 26] != x)
+				{
+					distance += 1;
+				}
+				de_text += alpha_up[distance];
+			}
 		}
+			
 		else
 		{
 			de_text += x;
